@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+<head>
+    <!-- 느낌표를 치면 나오는 것들 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- CSS파일적용 -->
+    <link rel="stylesheet" type="text/css" href="homework_KHR.css">
+    <!-- 구글폰트적용 -->
+    <link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+    <!-- 부트스크랩 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+
+<body>
+    <!-- 상품사진코너-->
+    <div class="big-box">
+        <div class="box1">
+            <img src="homeimage.jpg" alt="My Image">
+        </div>
+        <!-- 상품제목코너 -->
+        <div class="itemS1">
+            <p class="itemS1A">
+                한옥 인테리어<span style="font-size:11pt;color:black;text-align:right">가격:10,000,000원/개</span>
+                <P class="itemS1A">
+                    [주방 인테리어] 고품격 한옥식 주방 인테리어
+                </P>
+            </p>
+        </div>
+        <!-- 주문하기코너 -->
+        <div class="itemS1">
+            <p> 주문하기</p>
+        </div>
+        <div class=mid-box>
+            <!-- 주문자이름 -->
+            <div class="col-auto">
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">주문자이름</div>
+                    </div>
+                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="이름을 입력해주세요.">
+                </div>
+            </div>
+            <!-- 수량 -->
+            <div class="col-auto">
+                <label class="sr-only" for="inlineFormInputGroup">####</label>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">수량
+                        </div>
+                    </div>
+                    <select class="custom-select" id="inlineFormCustomSelect" style="margin-right=0px">
+                        <option selected>---수량을 선택해주세요.-----</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>
+            <!-- 주소 -->
+            <div class="col-auto">
+                <label class="sr-only" for="inlineFormInputGroup">####</label>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">주소</div>
+                    </div>
+                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="주소를 입력해주세요.">
+                </div>
+            </div>
+            <!-- 전화번호 -->
+            <div class="col-auto">
+                <label class="sr-only" for="inlineFormInputGroup">####</label>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">전화번호</div>
+                    </div>
+                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="010-####-####">
+                </div>
+            </div>
+        </div>
+        <!-- 주문하기버튼코너 -->
+        <div class=btt>
+            <button type="button" class="btn btn-info">주문하기</button>
+        </div>
+    </div>
+    <!-- 부트스크랩JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
