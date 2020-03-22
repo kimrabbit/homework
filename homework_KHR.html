@@ -14,6 +14,93 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <!-- <-----알림띄우기-----------> -->
+    <script>
+
+        function isCellPhone(p) {
+            var regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})[-][0-9]{3,4}[-][0-9]{4}$/;
+            return regExp.test(p);
+        }
+
+        function order() {
+            let name = $('#order_name').val();
+            let count = $('#order_count').val();
+            let address = $('#order_address').val();
+            let phone = $('#order_phone').val();
+
+            if (name == '') {
+                alert('이름을 입력해주세요')
+                $('#order_name').focus()
+                return
+            } else if (count == '') {
+                alert('수량을 입력해주세요')
+                $('#order_count').focus()
+                return
+            } else if (address == '') {
+                alert('주소를 입력해주세요')
+                $('#order_address').focus()
+                return
+            } else if (phone == '') {
+                alert('휴대폰번호를 입력해주세요')
+                $('#order_phone').focus()
+                return
+            } else if (!isCellPhone(phone)) {
+                alert('휴대폰번호 입력 형식이 틀립니다. \n 010-0000-0000으로 입력해주세요')
+                return
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/order",
+                data: { name_give: name, count_give: count, address_give: address, phone_give: phone },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert('주문 완료!');
+                        window.location.reload();
+                    }
+                }
+            })
+        }
+
+        $(document).ready(function () {
+            $('#orders-box').html('');
+            listing();
+        });
+
+        function listing() {
+            $.ajax({
+                type: "GET",
+                url: "/order",
+                data: {},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        let orders = response['orders'];
+                        console.log(orders);
+                        for (let i = 0; i < orders.length; i++) {
+                            make_card(orders[i]['name'], orders[i]['count'], orders[i]['address'], orders[i]['phone'])
+                        }
+                    } else {
+                        alert('기사를 받아오지 못했습니다');
+                    }
+                }
+            })
+        }
+
+        function make_card(name, count, address, phone) {
+            let temp_html = '<tr>\
+            <td>'+ name + '</td>\
+            <td>'+ count + '</td>\
+            <td>'+ address + '</td>\
+            <td>'+ phone + '</td>\
+          </tr>';
+            $('#orders-box').append(temp_html);
+        }
+
+
+
+    </script>
+
+
 </head>
 
 
@@ -43,7 +130,8 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text">주문자이름</div>
                     </div>
-                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="이름을 입력해주세요.">
+                    <!-- <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="이름을 입력해주세요."> -->
+                    <input type="text" class="form-control" id="order_name" placeholder="이름을 입력해주세요.">
                 </div>
             </div>
             <!-- 수량 -->
@@ -54,22 +142,26 @@
                         <div class="input-group-text">수량
                         </div>
                     </div>
-                    <select class="custom-select" id="inlineFormCustomSelect" style="margin-right=0px">
+                    <!-- <select class="custom-select" id="inlineFormCustomSelect" style="margin-right=0px"> -->
+                    <select class="custom-select" id="order_count" style="margin-right=0px">
                         <option selected>---수량을 선택해주세요.-----</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                     </select>
                 </div>
+
             </div>
             <!-- 주소 -->
             <div class="col-auto">
+                <!-- <label class="sr-only" for="inlineFormInputGroup">####</label> -->
                 <label class="sr-only" for="inlineFormInputGroup">####</label>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend">
                         <div class="input-group-text">주소</div>
                     </div>
-                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="주소를 입력해주세요.">
+                    <!-- <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="주소를 입력해주세요."> -->
+                    <input type="text" class="form-control" id="order_adress" placeholder="주소를 입력해주세요.">
                 </div>
             </div>
             <!-- 전화번호 -->
@@ -79,14 +171,33 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text">전화번호</div>
                     </div>
-                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="010-####-####">
+                    <!-- <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="010-####-####"> -->
+                    <input type="text" class="form-control" id="order_phone" placeholder="010-####-####">
                 </div>
             </div>
         </div>
         <!-- 주문하기버튼코너 -->
-        <div class=btt>
-            <button type="button" class="btn btn-info">주문하기</button>
+        <div class=order>
+            <!-- <button type="button" class="btn btn-info">주문하기</button> -->
+            <button onclick="order()" type="button" class="btn btn-info">주문하기</button>
+
+<!-- <----------- 아래 주문내역 표------------> 
         </div>
+        <div class="orders">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">이름</th>
+                        <th scope="col">수량</th>
+                        <th scope="col">주소</th>
+                        <th scope="col">전화번호</th>
+                    </tr>
+                </thead>
+            </table>
+
+        </div>
+
+
     </div>
     <!-- 부트스크랩JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
